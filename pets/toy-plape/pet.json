@@ -1,0 +1,121 @@
+{
+  "id": "toy-plape",
+  "displayName": "Toy Plape",
+  "description": "A 3D-toy avatar of Plape.",
+  "spritesheetPath": "spritesheet.webp",
+  "fps": 8,
+  "defaultAnimation": "idle",
+  "animations": {
+    "idle": {
+      "row": 0,
+      "frames": 6,
+      "frameDurationsMs": [
+        2600,
+        110,
+        2400,
+        900,
+        110,
+        2800
+      ]
+    },
+    "running-right": {
+      "row": 1,
+      "frames": 8,
+      "frameDurationsMs": [
+        160,
+        160,
+        160,
+        160,
+        160,
+        160,
+        160,
+        160
+      ]
+    },
+    "running-left": {
+      "row": 2,
+      "frames": 8,
+      "frameDurationsMs": [
+        160,
+        160,
+        160,
+        160,
+        160,
+        160,
+        160,
+        160
+      ]
+    },
+    "waving": {
+      "row": 3,
+      "frames": 4,
+      "frameDurationsMs": [
+        300,
+        300,
+        300,
+        500
+      ]
+    },
+    "jumping": {
+      "row": 4,
+      "frames": 5,
+      "frameDurationsMs": [
+        110,
+        110,
+        140,
+        110,
+        400
+      ]
+    },
+    "failed": {
+      "row": 5,
+      "frames": 8,
+      "frameDurationsMs": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        1200
+      ]
+    },
+    "waiting": {
+      "row": 6,
+      "frames": 6,
+      "frameDurationsMs": [
+        2400,
+        600,
+        2400,
+        600,
+        2400,
+        600
+      ]
+    },
+    "running": {
+      "row": 7,
+      "frames": 6,
+      "frameDurationsMs": [
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000
+      ]
+    },
+    "review": {
+      "row": 8,
+      "frames": 6,
+      "frameDurationsMs": [
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000
+      ]
+    }
+  }
+}

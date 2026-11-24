@@ -1,0 +1,123 @@
+{
+  "id": "green-duck",
+  "displayName": "Green Duck",
+  "description": "A classic rubber duck in mainframe-terminal green, with calm, held poses.",
+  "spritesheetPath": "spritesheet.webp",
+  "fps": 8,
+  "defaultAnimation": "idle",
+  "animations": {
+    "idle": {
+      "row": 0,
+      "frames": 8,
+      "frameDurationsMs": [
+        2600,
+        260,
+        700,
+        260,
+        2000,
+        110,
+        2600,
+        900
+      ]
+    },
+    "running-right": {
+      "row": 1,
+      "frames": 8,
+      "frameDurationsMs": [
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        200
+      ]
+    },
+    "running-left": {
+      "row": 2,
+      "frames": 8,
+      "frameDurationsMs": [
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        200
+      ]
+    },
+    "waving": {
+      "row": 3,
+      "frames": 4,
+      "frameDurationsMs": [
+        200,
+        200,
+        200,
+        400
+      ]
+    },
+    "jumping": {
+      "row": 4,
+      "frames": 5,
+      "frameDurationsMs": [
+        110,
+        110,
+        140,
+        110,
+        400
+      ]
+    },
+    "failed": {
+      "row": 5,
+      "frames": 8,
+      "frameDurationsMs": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        1200
+      ]
+    },
+    "waiting": {
+      "row": 6,
+      "frames": 6,
+      "frameDurationsMs": [
+        2400,
+        110,
+        1800,
+        900,
+        110,
+        2600
+      ]
+    },
+    "running": {
+      "row": 7,
+      "frames": 6,
+      "frameDurationsMs": [
+        1800,
+        110,
+        1500,
+        700,
+        1500,
+        700
+      ]
+    },
+    "review": {
+      "row": 8,
+      "frames": 6,
+      "frameDurationsMs": [
+        2600,
+        110,
+        2200,
+        900,
+        110,
+        2600
+      ]
+    }
+  }
+}
