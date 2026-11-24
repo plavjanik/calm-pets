@@ -6,6 +6,14 @@ design, build and package more of them.
 
 ![The pets side by side](docs/images/lineup.png)
 
+**What is a pet?** Codex and Orca can show a small animated character next to your coding
+agents. It changes animation with their state:
+- busy while they work;
+- asking for attention when one is waiting for you;
+- content when they are done.
+
+Both apps use the same `.codex-pet` bundle: a folder with `pet.json` and a sprite sheet.
+
 A pet sits next to your work all day, so these pets move calmly:
 - held poses per state;
 - long holds and quick blinks;

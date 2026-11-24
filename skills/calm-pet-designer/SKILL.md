@@ -1,6 +1,6 @@
 ---
 name: calm-pet-designer
-description: Design, build, validate and package calm animated desktop pets in the `.codex-pet` bundle format (pet.json + spritesheet.webp) used by OpenAI Codex pets and the Orca app's pet overlay. Covers choosing a look from still options, calm low-distraction motion with held poses and per-frame timing, crisp HD bundles for Orca, standard 192x208 bundles for Codex, smooth 3D toy, blocky voxel and likeness-based avatar styles, and install steps. Use when the user wants to make, fix, restyle or package a Codex pet, an Orca pet, a desktop pet or companion, a sprite-sheet mascot, or a pet/avatar of themselves, or says a pet "moves too much", "looks jagged/pixelated" or "is distracting".
+description: Make calm animated desktop pets for OpenAI Codex and the Orca coding-agent app. A pet is a small animated character that sits on screen next to your agents and switches animation with their state (working, waiting for you, done). In Codex it is chosen with /pet; in Orca under the status-bar Pet menu. Both use the `.codex-pet` bundle (pet.json + spritesheet.webp, 9 animation rows). Covers picking a look from still options, calm low-distraction motion with held poses and per-frame timing, crisp HD bundles for Orca and standard 192x208 bundles for Codex, smooth 3D toy, blocky voxel and photo-based avatar styles, validation, previews and install steps. Use when the user wants to make, fix, restyle or package a Codex pet, an Orca pet, a desktop pet or companion, or a pet/avatar of themselves, or says a pet "moves too much", "looks jagged/pixelated" or "is distracting".
 license: MIT
 compatibility: Scripts need Python 3.9+ and Pillow. Art can come from any tool (Blender, Blockbench, a pixel editor, an image model such as gpt-image or ComfyUI); none is required by the skill itself.
 metadata:
@@ -9,6 +9,18 @@ metadata:
 ---
 
 # Calm pet designer
+
+**What a pet is.** OpenAI Codex and the Orca app (https://orca.dev) can show a small
+animated character, a *pet*, that sits on the desktop next to your coding agents. It
+plays a different animation depending on what the agents are doing:
+- *running* while they work;
+- *waiting* when one needs you;
+- *review* when they are done;
+- *idle* otherwise.
+
+In Codex you pick a pet with `/pet` or under Settings → Appearance → Pets. In Orca, you
+turn on Settings → Experimental → Pet and import a bundle from the status-bar Pet menu.
+Both apps read the same `.codex-pet` bundle: a folder with `pet.json` and one sprite sheet.
 
 A desktop pet sits on screen all day, next to the user's work. The most common failure is
 not ugliness but **distraction**: too much motion, jagged scaling, a pet that keeps
