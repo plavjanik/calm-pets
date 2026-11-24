@@ -78,8 +78,8 @@ git clone https://github.com/plavjanik/calm-pets.git
 
 **Codex**
 ```sh
-mkdir -p "${CODEX_HOME:-$HOME/.codex}/pets"
-cp -R calm-pets/pets/green-duck "${CODEX_HOME:-$HOME/.codex}/pets/"
+dest="${CODEX_HOME:-$HOME/.codex}/pets/green-duck"
+[ -e "$dest" ] && echo "already installed: $dest" || { mkdir -p "$(dirname "$dest")" && cp -R calm-pets/pets/green-duck "$dest"; }
 ```
 Then choose it in Settings → Appearance → Pets, or with `/pet`.
 

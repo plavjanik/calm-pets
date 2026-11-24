@@ -25,7 +25,7 @@ Scripts (Python 3.9+, Pillow only), in `scripts/`:
 | Script | Use |
 |---|---|
 | `pack_pet.py --frames DIR --spec spec.json --out BUNDLE` | frames `DIR/<row>/NN.png` + timings → `pet.json` + `spritesheet.webp` (`--from-sheet PNG` packs an existing sheet) |
-| `validate_pet.py BUNDLE [--codex] [--motion] [--fix]` | checks the contract, colour residue in transparent pixels, baseline and size drift, and how busy each state is (`--motion` gives the full report); `--codex` also requires 192x208 cells; `--fix` clears transparent-pixel residue |
+| `validate_pet.py BUNDLE [--codex] [--motion] [--fix]` | checks the contract, colour residue in transparent pixels, baseline and size drift, and how busy each state is (`--motion` gives the full report); `--codex` also requires 192x208 cells; `--fix --out NEW_DIR` writes a copy with the residue cleared and never changes the input |
 | `make_standard.py HD_BUNDLE --out STD_BUNDLE` | turns a 384x416 HD bundle into a standard 192x208 bundle |
 | `preview_pet.py BUNDLE --out DIR` | one GIF per row with the real timings + contact sheets on dark and light |
 
@@ -60,7 +60,8 @@ Follow these steps in order. Each step ends with something the user can look at.
    yourself before showing the user. Check the items under *Review checklist*, fix what
    fails, and state the remaining weak points honestly.
 9. **Try it in the app**: the user imports it (`references/install.md`) and reports
-   back. Note what they say and apply it to the next pet.
+   back. Never install into an app's pet folder or overwrite an installed pet without the
+   user's explicit yes. Note what they say and apply it to the next pet.
 
 ## Review checklist
 

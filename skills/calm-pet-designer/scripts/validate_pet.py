@@ -4,13 +4,15 @@
 Hard failures: schema, geometry, size limits, empty used cells, non-empty unused
 cells, non-transparent sheet corners. Warnings: content touching the cell edge.
 --codex additionally requires the 192x208 / 1536x1872 Codex contract.
-Also: FAIL when >0.1% of alpha-0 pixels carry RGB (--fix rewrites the sheet
-cleared), baseline/size drift warnings, and a calm-motion report (INFO lines;
+Also: FAIL when >0.1% of alpha-0 pixels carry RGB (--fix --out DIR writes a
+cleared copy of the bundle to DIR and validates that copy; the input is never
+modified), baseline/size drift warnings, and a calm-motion report (INFO lines;
 --motion prints every frame pair).
 """
 import argparse
 import json
 import os
+import shutil
 import sys
 
 from PIL import Image, ImageChops
@@ -233,31 +235,53 @@ def pair_change(a, b):
     return 100.0 * changed / area
 
 
-def fix_sheet(bundle):
+def fix_sheet(bundle, out):
+    """Copy pet.json and the sheet from bundle into the new directory out, clearing sheet RGB there."""
     with open(os.path.join(bundle, "pet.json"), encoding="utf-8") as f:
         meta = json.load(f)
-    p = os.path.realpath(os.path.join(bundle, meta["spritesheetPath"]))
-    if not p.startswith(os.path.realpath(bundle) + os.sep):
+    sp = meta["spritesheetPath"]
+    src = os.path.realpath(os.path.join(bundle, sp))
+    if not src.startswith(os.path.realpath(bundle) + os.sep):
         print("FAIL  spritesheetPath escapes the bundle")
         sys.exit(1)
-    img = Image.open(p).convert("RGBA")
+    shutil.copyfile(os.path.join(bundle, "pet.json"), os.path.join(out, "pet.json"))
+    dst = os.path.join(out, sp)
+    if not os.path.realpath(dst).startswith(os.path.realpath(out) + os.sep):
+        print("FAIL  spritesheetPath escapes the output directory")
+        sys.exit(1)
+    os.makedirs(os.path.dirname(dst), exist_ok=True)
+    shutil.copyfile(src, dst)
+    img = Image.open(dst).convert("RGBA")
     n, _ = transparent_residue(img)
     if n:
-        save_webp(clear_transparent_rgb(img), p)
-    print("fixed: cleared RGB on %d transparent pixel(s)" % n)
+        save_webp(clear_transparent_rgb(img), dst)
+    print("fixed: cleared RGB on %d transparent pixel(s) in %s" % (n, dst))
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("bundle", help="bundle directory")
+    ap.add_argument("bundle", help="bundle directory (never modified)")
     ap.add_argument("--codex", action="store_true", help="require the 192x208 Codex contract")
     ap.add_argument("--motion", action="store_true", help="print every frame-pair change, not just per-row summary")
-    ap.add_argument("--fix", action="store_true", help="clear RGB of alpha-0 pixels in the sheet (lossless, in place), then validate")
+    ap.add_argument("--fix", action="store_true",
+                    help="clear RGB of alpha-0 pixels: write a copy of pet.json and the cleared sheet to --out, "
+                         "then validate that copy (requires --out; the input bundle is not touched)")
+    ap.add_argument("--out", metavar="DIR",
+                    help="with --fix: new directory to create for the fixed copy (must not exist; never overwritten)")
     a = ap.parse_args()
+    if a.fix and not a.out:
+        ap.error("--fix requires --out DIR (the input bundle is never modified)")
+    if a.out and not a.fix:
+        ap.error("--out is only valid with --fix")
+    target = a.bundle
     if a.fix:
-        fix_sheet(a.bundle)
+        if os.path.lexists(a.out):
+            ap.error("--out %s already exists; refusing to overwrite" % a.out)
+        os.makedirs(a.out)
+        fix_sheet(a.bundle, a.out)
+        target = a.out
     info = []
-    fails, warns = validate(a.bundle, a.codex, a.motion, info)
+    fails, warns = validate(target, a.codex, a.motion, info)
     for i in info:
         print("INFO  " + i if not i.startswith("    ") else i)
     for w in warns:
@@ -265,7 +289,7 @@ def main():
     for f in fails:
         print("FAIL  " + f)
     print("%s: %s (%d failure(s), %d warning(s))" % (
-        "FAIL" if fails else "PASS", a.bundle, len(fails), len(warns)))
+        "FAIL" if fails else "PASS", target, len(fails), len(warns)))
     sys.exit(1 if fails else 0)
 
 

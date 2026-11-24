@@ -19,13 +19,19 @@ again and restart.
 
 ## Codex
 
-Copy the standard bundle (192x208) into the Codex pets folder, then pick it in Settings →
-Appearance → Pets, or with `/pet`:
+Codex loads pets from its pets folder, `${CODEX_HOME:-$HOME/.codex}/pets/`. Installing
+there changes the user's app setup, so:
+- don't do it on your own: show the user the command and let them run it, or run it only
+  after they explicitly say yes;
+- never overwrite or delete an existing pet folder. If the folder already exists, stop and
+  ask, or ask for a new `id`.
 
 ```sh
-mkdir -p "${CODEX_HOME:-$HOME/.codex}/pets"
-cp -R green-duck "${CODEX_HOME:-$HOME/.codex}/pets/"
+dest="${CODEX_HOME:-$HOME/.codex}/pets/green-duck"
+[ -e "$dest" ] && echo "already installed: $dest" || { mkdir -p "$(dirname "$dest")" && cp -R green-duck "$dest"; }
 ```
+
+Then pick the pet in Settings → Appearance → Pets, or with `/pet`.
 
 ## Sharing
 
